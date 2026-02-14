@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project One</title>
+    <!-- link CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins" />
+     
+</head>
+<body>
+    <!--Header-->
+    <header role="banner">
+        <nav class="container" role="navigation">
+            <h1>ExploreWorld</h1>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#packages">Packages</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#booknow">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!--End Header-->
+    <section id="home">
+        <video class="bg-video" autoplay muted loop playinline>
+            <source src="./assets/videos/travel.mp4" type="video/mp4" />
+        </video>
+        <div class="overlay" aria-hidden="true"></div>
+        <div class="home-content container">
+            <h2>Discover Your Next Adventure</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis voluptatem maiores deleniti nesciunt.</p>
+            <a class="btn">Explore Packages</a>
+        </div>
+    </section>
+    <section id="destinations" class="destinations">
+        <div class="container">
+            <h2 class="destinations-heading">Popular Destinations</h2>
+            <div class="destinations-grid">
+                <article class="destinations-card">
+                    <img src="./assets/images/first.jpg" alt="">
+                    <h3>Paris</h3>
+                </article>
+                <article class="destinations-card">
+                    <img src="./assets/images/second.jpg" alt="">
+                    <h3>Bali</h3>
+                </article>
+                <article class="destinations-card">
+                    <img src="./assets/images/third.jpg" alt="">
+                    <h3>NewYork</h3>
+                </article>
+                <article class="destinations-card">
+                    <img src="./assets/images/fourth.jpg" alt="">
+                    <h3>Tokyo</h3>
+                </article>
+            </div>
+        </div>
+    </section>
+    <section id="packages" class="packages">
+        <div class="packages-container">
+            <h2 class="packages-heading">Our Packages</h2>
+            <div class="packages-grid">
+                <article class="packages-card">
+                    <img src="./assets/images/first.jpg" alt="">
+                    <h3>Europe Explorer</h3>
+                    <p>10 Days | Starting from $1200</p>
+                    <a href="" class="packages-btn">Book Now</a>
+                </article>
+                <article class="packages-card">
+                    <img src="./assets/images/second.jpg" alt="">
+                    <h3>Maldives Paradise</h3>
+                    <p>7 Days | Starting from $900</p>
+                    <a href="" class="packages-btn">Book Now</a>
+                </article>
+                <article class="packages-card">
+                    <img src="./assets/images/third.jpg" alt="">
+                    <h3>Tokyo Delight</h3>
+                    <p>5 Days | Starting from $1100</p>
+                    <a href="" class="packages-btn">Book Now</a>
+                </article>
+                <article class="packages-card">
+                    <img src="./assets/images/fourth.jpg" alt="">
+                    <h3>Dubai Luxury Escape</h3>
+                    <p>6 Days | Starting from $999</p>
+                    <a href="" class="packages-btn">Book Now</a>
+                </article>
+            </div>
+        </div>
+    </section>
+    <section id="testimonials" class="section">
+        <div class="container">
+            <h2 id="testimonials-heading">What Our Travelers Say</h2>
+            <div class="testimonials-grid">
+                <blockquote class="testimonial" role="listitem">
+                <i class="fa-solid fa-quote-left fa-2x" aria-hidden="true"></i>
+                <p>
+                “ExploreWorld made our honeymoon unforgettable! Everything was
+                perfectly arranged.”
+                </p>
+                <h4>- Priya & Rahul</h4>
+            </blockquote>
+
+            <blockquote class="testimonial" role="listitem">
+                <i class="fa-solid fa-quote-left fa-2x" aria-hidden="true"></i>
+                <p>
+                “Highly professional service! Our Europe trip was amazing. Totally
+                recommended!”
+                </p>
+                <h4>- Aman Verma</h4>
+            </blockquote>
+
+            <blockquote class="testimonial" role="listitem">
+                <i class="fa-solid fa-quote-left fa-2x" aria-hidden="true"></i>
+                <p>
+                “Affordable, easy, and wonderful experience from booking to
+                travel.”
+                </p>
+                <h4>- Neha Sharma</h4>
+            </blockquote>
+            </div>
+        </div>
+    </section>
+    <section id="book-form-section" role="form">
+        <div class="container">
+            <h2 class="book-form-heading">Book Your Trip</h2>
+            <p class="book-desc">Fill out your details and we’ll get back to you shortly.</p>
+            <form action="" class="book-form">
+                <label for="full-name" class="form-label">Full Name</label>
+                <input id="full-name" placeholder="Full Name" type="text">
+                <label for="email" class="form-label">Email Address</label>
+                <input id="email" placeholder="Email Address" type="text">
+                <label for="destination" class="form-label">Destination</label>
+                <select name="destination" id="destination">
+                    <option value="">Select Destination</option>
+                    <option value="paris">Paris</option>
+                    <option value="bali">Bali</option>
+                    <option value="new-york">New York</option>
+                    <option value="tokyo">Tokyo</option>
+                </select>
+                <label for="phone-number" class="form-label">Phone Number</label>
+                <input id="phone-number" placeholder="Phone Number" type="number">
+                <label for="book-message" class="form-label">Message</label>
+                <textarea itemid="message" placeholder="Message or Special Request" rows="4" name="message" id="book-message"></textarea>
+                <button type="submit">Submit Booking</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="container footer-container">
+            <div>
+                <h3>About ExploreWorld</h3>
+                <p>We make your travel dreams come true with handpicked destinations, affordable packages, and seamless booking experiences.</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#packages">Packages</a></li>
+                    <li><a href="#book-form-section">Book Now</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Contact Us</h3>
+                <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+                <p><i class="fa-solid fa-envelope"></i> info@exploreworld.com</p>
+            </div>
+            <div>
+                <h3>Find Us</h3>
+                <iframe
+                    title="ExploreWorld Office Location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019835235083!2d-122.41941538468187!3d37.77492977975932!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064d9d7b8a3%3A0x47fca1f7b3b9b0e!2sTravel%20Agency!5e0!3m2!1sen!2sin!4v1680000000000"
+                    allowfullscreen=""
+                    loading="lazy"
+                ></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 ExploreWorld. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
