@@ -1,0 +1,114 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f5f7fa;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* ===== CONTAINER ===== */
+
+.container {
+  width: 92%;
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+/* ===== CARD ===== */
+
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+/* ===== FLEX ===== */
+
+.flex {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* ===== HEADINGS ===== */
+
+h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ===== BUTTON ===== */
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background: #1e40af;
+}
+
+/* ===== INPUTS ===== */
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* ===== STATUS COLORS ===== */
+
+.income {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.expense {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* ===== TRANSACTION ITEM ===== */
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+  .flex {
+    flex-direction: column;
+  }
+}
