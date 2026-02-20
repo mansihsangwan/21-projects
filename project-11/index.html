@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>HTML5 Drag & Drop Demo – Add & Remove</title>
+<link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+<h1>Dragify Interactive Drag & Drop App</h1>
+
+<div class="container">
+
+  <!-- Column 1 -->
+  <div class="column" data-col="todo">
+    <h2>To Do</h2>
+    <div class="add-bar">
+      <input type="text" placeholder="Add a task…" />
+      <button type="button">Add</button>
+    </div>
+    <div class="items">
+      <div class="item" draggable="true">Task 1<button class="delete-btn" title="Delete">×</button></div>
+      <div class="item" draggable="true">Task 2<button class="delete-btn" title="Delete">×</button></div>
+      <div class="item" draggable="true">Task 3<button class="delete-btn" title="Delete">×</button></div>
+    </div>
+  </div>
+
+  <!-- Column 2 -->
+  <div class="column" data-col="progress">
+    <h2>In Progress</h2>
+    <div class="add-bar">
+      <input type="text" placeholder="Add a task…" />
+      <button type="button">Add</button>
+    </div>
+    <div class="items">
+      <div class="item" draggable="true">Task A<button class="delete-btn" title="Delete">×</button></div>
+      <div class="item" draggable="true">Task B<button class="delete-btn" title="Delete">×</button></div>
+    </div>
+  </div>
+
+  <!-- Column 3 -->
+  <div class="column" data-col="done">
+    <h2>Done</h2>
+    <div class="add-bar">
+      <input type="text" placeholder="Add a task…" />
+      <button type="button">Add</button>
+    </div>
+    <div class="items">
+      <div class="item" draggable="true">Completed X<button class="delete-btn" title="Delete">×</button></div>
+      <div class="item" draggable="true">Completed Y<button class="delete-btn" title="Delete">×</button></div>
+    </div>
+  </div>
+
+</div>
+ <script src="./js/app.js"></script>
+</body>
+</html>
