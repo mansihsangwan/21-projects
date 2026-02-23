@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manager Tool</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+      .sidebar {
+        width: 280px;
+        min-height: 100vh;
+      }
+
+      body,
+      .card,
+      .sidebar,
+      .navbar,
+      .modal-content {
+        transition:
+          background-color 0.3s,
+          color 0.3s,
+          border-color 0.3s;
+      }
+    </style>
+  </head>
+
+  <body class="bg-body-secondary">
+    <div class="d-flex" id="wrapper">
+      <div
+        class="sidebar bg-body-tertiary border-end p-3 d-none d-lg-flex flex-column flex-shrink-0 position-fixed top-0 start-0 z-3"
+      >
+        <a
+          href="/"
+          class="d-flex align-items-center mb-4 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+        >
+          <i class="fa-solid fa-robot fa-2x me-2 text-primary"></i>
+          <div>
+            <span class="fs-5 fw-bold">Resource Mgr</span>
+            <div class="small text-secondary">Suite v2.0</div>
+          </div>
+        </a>
+        <hr />
+        <ul class="nav nav-pills flex-column mb-auto gap-2">
+          <li class="nav-item">
+            <a
+              href="#"
+              class="nav-link active d-flex align-items-center"
+              aria-current="page"
+            >
+              <i class="fa-solid fa-gauge-high me-3 w-25 text-center"></i>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a
+              href="#allocations"
+              class="nav-link link-body-emphasis d-flex align-items-center"
+            >
+              <i class="fa-solid fa-diagram-project me-3 w-25 text-center"></i>
+              Allocations
+            </a>
+          </li>
+          <li>
+            <a
+              href="#teams"
+              class="nav-link link-body-emphasis d-flex align-items-center"
+            >
+              <i class="fa-solid fa-users me-3 w-25 text-center"></i>
+              Teams
+            </a>
+          </li>
+          <li>
+            <a
+              href="#projects"
+              class="nav-link link-body-emphasis d-flex align-items-center"
+            >
+              <i class="fa-solid fa-briefcase me-3 w-25 text-center"></i>
+              Projects
+            </a>
+          </li>
+          <li>
+            <a
+              href="#reports"
+              class="nav-link link-body-emphasis d-flex align-items-center"
+            >
+              <i class="fa-solid fa-file-lines me-3 w-25 text-center"></i>
+              Reports
+            </a>
+          </li>
+        </ul>
+        <hr />
+        <div class="dropdown">
+          <a
+            href="#"
+            class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg"
+              alt=""
+              width="32"
+              height="32"
+              class="rounded-circle me-2 object-fit-cover"
+            />
+            <strong>Vikas</strong>
+          </a>
+          <ul class="dropdown-menu text-small shadow">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="offcanvas offcanvas-start bg-body-tertiary"
+        tabindex="-1"
+        id="mobileSidebar"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title fw-bold">
+            <i class="fa-solid fa-robot me-2 text-primary"></i> Resource Mgr
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column h-100">
+          <ul class="nav nav-pills flex-column mb-auto gap-2">
+            <li class="nav-item">
+              <a
+                href="#"
+                class="nav-link active d-flex align-items-center"
+                aria-current="page"
+              >
+                <i class="fa-solid fa-gauge-high me-3 w-25 text-center"></i>
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a
+                href="#projects"
+                class="nav-link link-body-emphasis d-flex align-items-center"
+              >
+                <i class="fa-solid fa-briefcase me-3 w-25 text-center"></i>
+                Projects
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="w-100"
+        style="margin-left: 280px; @media (max-width: 991px) {margin-left: 0}"
+      >
+        <style>
+          @media (max-width: 991.98px) {
+            .w-100[style] {
+              margin-left: 0 !important;
+            }
+          }
+        </style>
+
+        <header class="p-3 mb-4 border-bottom bg-body-tertiary sticky-top">
+          <div
+            class="container-fluid d-flex align-items-center justify-content-between"
+          >
+            <div class="d-flex align-items-center gap-3">
+              <button
+                class="btn btn-outline-secondary d-lg-none"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#mobileSidebar"
+              >
+                <i class="fa-solid fa-bars"></i>
+              </button>
+              <h4 class="mb-0 d-none d-sm-block fw-semibold">Dashboard</h4>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+              <form class="d-none d-md-flex" role="search">
+                <div class="input-group">
+                  <span class="input-group-text bg-body-secondary border-end-0"
+                    ><i class="fa-solid fa-magnifying-glass text-secondary"></i
+                  ></span>
+                  <input
+                    class="form-control bg-body-secondary border-start-0"
+                    type="search"
+                    placeholder="Search..."
+                    aria-label="Search"
+                  />
+                </div>
+              </form>
+
+              <div class="vr mx-2"></div>
+
+              <button
+                class="btn btn-outline-secondary rounded-circle p-2"
+                id="themeToggle"
+                style="width: 40px; height: 40px"
+              >
+                <i class="fa-regular fa-moon" id="themeIcon"></i>
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-outline-secondary position-relative rounded-circle p-2"
+                style="width: 40px; height: 40px"
+              >
+                <i class="fa-regular fa-bell"></i>
+                <span
+                  class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"
+                >
+                  <span class="visually-hidden">New alerts</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <main class="container-fluid px-4 pb-5">
+          <div class="row g-4 mb-4">
+            <div class="col-sm-6 col-xl-3">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-body p-4">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h6
+                      class="text-body-secondary text-uppercase fw-semibold small"
+                    >
+                      Total Resources
+                    </h6>
+                    <div
+                      class="bg-primary-subtle text-primary rounded-circle p-2 d-flex align-items-center justify-content-center"
+                      style="width: 32px; height: 32px"
+                    >
+                      <i class="fa-solid fa-users"></i>
+                    </div>
+                  </div>
+                  <h3 class="fw-bold mb-1">128</h3>
+                  <div class="d-flex align-items-center">
+                    <span
+                      class="badge bg-success-subtle text-success rounded-pill me-2"
+                      ><i class="fa-solid fa-arrow-up"></i> 6%</span
+                    >
+                    <span class="small text-body-secondary">vs last month</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-body p-4">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h6
+                      class="text-body-secondary text-uppercase fw-semibold small"
+                    >
+                      Active Projects
+                    </h6>
+                    <div
+                      class="bg-success-subtle text-success rounded-circle p-2 d-flex align-items-center justify-content-center"
+                      style="width: 32px; height: 32px"
+                    >
+                      <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                  </div>
+                  <h3 class="fw-bold mb-1">24</h3>
+                  <div class="d-flex align-items-center">
+                    <span
+                      class="badge bg-primary-subtle text-primary rounded-pill me-2"
+                      >4 New</span
+                    >
+                    <span class="small text-body-secondary">launched</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-body p-4">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h6
+                      class="text-body-secondary text-uppercase fw-semibold small"
+                    >
+                      Avg Utilization
+                    </h6>
+                    <div
+                      class="bg-warning-subtle text-warning rounded-circle p-2 d-flex align-items-center justify-content-center"
+                      style="width: 32px; height: 32px"
+                    >
+                      <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                  </div>
+                  <h3 class="fw-bold mb-1">82%</h3>
+                  <div class="d-flex align-items-center">
+                    <span
+                      class="badge bg-warning-subtle text-warning rounded-pill me-2"
+                      >Stable</span
+                    >
+                    <span class="small text-body-secondary">trend</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-body p-4">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-2"
+                  >
+                    <h6
+                      class="text-body-secondary text-uppercase fw-semibold small"
+                    >
+                      On Bench
+                    </h6>
+                    <div
+                      class="bg-danger-subtle text-danger rounded-circle p-2 d-flex align-items-center justify-content-center"
+                      style="width: 32px; height: 32px"
+                    >
+                      <i class="fa-solid fa-user-clock"></i>
+                    </div>
+                  </div>
+                  <h3 class="fw-bold mb-1">14</h3>
+                  <div class="d-flex align-items-center">
+                    <span
+                      class="badge bg-danger-subtle text-danger rounded-pill me-2"
+                      >High</span
+                    >
+                    <span class="small text-body-secondary"
+                      >needs allocation</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4 mb-5">
+            <div class="col-lg-7">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-header bg-transparent border-0 pt-4 px-4">
+                  <h5 class="fw-bold mb-0">Utilization Trends</h5>
+                </div>
+                <div class="card-body px-4 pb-4">
+                  <canvas id="utilChart" height="150"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div
+                  class="card-header bg-transparent border-0 pt-4 px-4 d-flex justify-content-between align-items-center"
+                >
+                  <h5 class="fw-bold mb-0">Top Allocations</h5>
+                  <button class="btn btn-sm btn-light rounded-pill px-3">
+                    View All
+                  </button>
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <th class="ps-4">Team</th>
+                          <th>Members</th>
+                          <th class="pe-4">Capacity</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                              <div class="bg-primary-subtle rounded p-1 me-2">
+                                <i class="fa-solid fa-server text-primary"></i>
+                              </div>
+                              <span class="fw-medium">Platform</span>
+                            </div>
+                          </td>
+                          <td>28</td>
+                          <td class="pe-4">
+                            <div
+                              class="d-flex align-items-center gap-2"
+                              style="width: 120px"
+                            >
+                              <div
+                                class="progress w-100"
+                                role="progressbar"
+                                style="height: 6px"
+                              >
+                                <div
+                                  class="progress-bar"
+                                  style="width: 78%"
+                                ></div>
+                              </div>
+                              <span class="small fw-semibold">78%</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                              <div class="bg-info-subtle rounded p-1 me-2">
+                                <i class="fa-solid fa-brain text-info"></i>
+                              </div>
+                              <span class="fw-medium">Data Science</span>
+                            </div>
+                          </td>
+                          <td>14</td>
+                          <td class="pe-4">
+                            <div
+                              class="d-flex align-items-center gap-2"
+                              style="width: 120px"
+                            >
+                              <div
+                                class="progress w-100"
+                                role="progressbar"
+                                style="height: 6px"
+                              >
+                                <div
+                                  class="progress-bar bg-info"
+                                  style="width: 62%"
+                                ></div>
+                              </div>
+                              <span class="small fw-semibold">62%</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                              <div class="bg-warning-subtle rounded p-1 me-2">
+                                <i
+                                  class="fa-solid fa-mobile-screen text-warning"
+                                ></i>
+                              </div>
+                              <span class="fw-medium">Mobile App</span>
+                            </div>
+                          </td>
+                          <td>18</td>
+                          <td class="pe-4">
+                            <div
+                              class="d-flex align-items-center gap-2"
+                              style="width: 120px"
+                            >
+                              <div
+                                class="progress w-100"
+                                role="progressbar"
+                                style="height: 6px"
+                              >
+                                <div
+                                  class="progress-bar bg-warning"
+                                  style="width: 45%"
+                                ></div>
+                              </div>
+                              <span class="small fw-semibold">45%</span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="d-flex justify-content-between align-items-center mb-4"
+            id="projects"
+          >
+            <h4 class="fw-bold mb-0">Active Projects</h4>
+            <button
+              class="btn btn-primary rounded-pill px-4"
+              data-bs-toggle="modal"
+              data-bs-target="#addProjectModal"
+            >
+              <i class="fa-solid fa-plus me-2"></i> New Project
+            </button>
+          </div>
+
+          <div class="row g-4 mb-5" id="projectGrid">
+            <div class="col-md-6 col-lg-4">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-3"
+                  >
+                    <div>
+                      <h5 class="card-title fw-bold mb-1">Payments Revamp</h5>
+                      <span
+                        class="badge bg-primary-subtle text-primary border border-primary-subtle"
+                        >Backend Team</span
+                      >
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-link text-body-secondary p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li><a class="dropdown-item" href="#">Details</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p class="card-text text-body-secondary small">
+                    Overhauling the payment gateway integration for better
+                    global support.
+                  </p>
+
+                  <div
+                    class="d-flex justify-content-between align-items-end mt-4"
+                  >
+                    <div class="w-100 me-3">
+                      <div class="d-flex justify-content-between mb-1">
+                        <span class="small fw-medium">Progress</span>
+                        <span class="small fw-bold">80%</span>
+                      </div>
+                      <div
+                        class="progress"
+                        role="progressbar"
+                        style="height: 6px"
+                      >
+                        <div class="progress-bar" style="width: 80%"></div>
+                      </div>
+                    </div>
+                    <div
+                      class="bg-body-secondary rounded p-2 text-center"
+                      style="min-width: 60px"
+                    >
+                      <div class="small fw-bold">DEC</div>
+                      <div class="fw-bold small text-muted">2025</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 pt-0 pb-3">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar-group d-flex">
+                      <img
+                        src="https://i.pravatar.cc/100?img=1"
+                        class="rounded-circle border border-2 border-body translate-middle-x"
+                        width="30"
+                        height="30"
+                      />
+                      <img
+                        src="https://i.pravatar.cc/100?img=2"
+                        class="rounded-circle border border-2 border-body translate-middle-x ms-n2"
+                        width="30"
+                        height="30"
+                        style="margin-left: -10px"
+                      />
+                      <img
+                        src="https://i.pravatar.cc/100?img=3"
+                        class="rounded-circle border border-2 border-body translate-middle-x ms-n2"
+                        width="30"
+                        height="30"
+                        style="margin-left: -10px"
+                      />
+                    </div>
+                    <span class="small text-muted ms-2">+5 others</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-3"
+                  >
+                    <div>
+                      <h5 class="card-title fw-bold mb-1">AI Insights</h5>
+                      <span
+                        class="badge bg-success-subtle text-success border border-success-subtle"
+                        >Data Science</span
+                      >
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-link text-body-secondary p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p class="card-text text-body-secondary small">
+                    Predictive analytics dashboard for customer retention.
+                  </p>
+
+                  <div
+                    class="d-flex justify-content-between align-items-end mt-4"
+                  >
+                    <div class="w-100 me-3">
+                      <div class="d-flex justify-content-between mb-1">
+                        <span class="small fw-medium">Progress</span>
+                        <span class="small fw-bold">65%</span>
+                      </div>
+                      <div
+                        class="progress"
+                        role="progressbar"
+                        style="height: 6px"
+                      >
+                        <div
+                          class="progress-bar bg-success"
+                          style="width: 65%"
+                        ></div>
+                      </div>
+                    </div>
+                    <div
+                      class="bg-body-secondary rounded p-2 text-center"
+                      style="min-width: 60px"
+                    >
+                      <div class="small fw-bold">JAN</div>
+                      <div class="fw-bold small text-muted">2026</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 pt-0 pb-3">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar-group d-flex">
+                      <img
+                        src="https://i.pravatar.cc/100?img=4"
+                        class="rounded-circle border border-2 border-body translate-middle-x"
+                        width="30"
+                        height="30"
+                      />
+                      <img
+                        src="https://i.pravatar.cc/100?img=5"
+                        class="rounded-circle border border-2 border-body translate-middle-x ms-n2"
+                        width="30"
+                        height="30"
+                        style="margin-left: -10px"
+                      />
+                    </div>
+                    <span class="small text-muted ms-2">+2 others</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-start mb-3"
+                  >
+                    <div>
+                      <h5 class="card-title fw-bold mb-1">Infrastructure Up</h5>
+                      <span
+                        class="badge bg-warning-subtle text-warning border border-warning-subtle"
+                        >DevOps</span
+                      >
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-link text-body-secondary p-0"
+                        data-bs-toggle="dropdown"
+                      >
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p class="card-text text-body-secondary small">
+                    Migrating legacy servers to containerized orchestration.
+                  </p>
+
+                  <div
+                    class="d-flex justify-content-between align-items-end mt-4"
+                  >
+                    <div class="w-100 me-3">
+                      <div class="d-flex justify-content-between mb-1">
+                        <span class="small fw-medium">Progress</span>
+                        <span class="small fw-bold">50%</span>
+                      </div>
+                      <div
+                        class="progress"
+                        role="progressbar"
+                        style="height: 6px"
+                      >
+                        <div
+                          class="progress-bar bg-warning"
+                          style="width: 50%"
+                        ></div>
+                      </div>
+                    </div>
+                    <div
+                      class="bg-body-secondary rounded p-2 text-center"
+                      style="min-width: 60px"
+                    >
+                      <div class="small fw-bold">FEB</div>
+                      <div class="fw-bold small text-muted">2026</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 pt-0 pb-3">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar-group d-flex">
+                      <img
+                        src="https://i.pravatar.cc/100?img=8"
+                        class="rounded-circle border border-2 border-body translate-middle-x"
+                        width="30"
+                        height="30"
+                      />
+                    </div>
+                    <span class="small text-muted ms-2">Lead only</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center mb-4" id="reports">
+            <h4 class="fw-bold mb-0">Reports & Analytics</h4>
+          </div>
+          <div class="row g-4 mb-4">
+            <div class="col-md-7">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-header bg-transparent border-0 pt-4 px-4">
+                  <h5 class="fw-bold mb-0">Project Performance</h5>
+                </div>
+                <div class="card-body px-4 pb-4">
+                  <canvas id="reportBar"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-header bg-transparent border-0 pt-4 px-4">
+                  <h5 class="fw-bold mb-0">Resource Distribution</h5>
+                </div>
+                <div class="card-body px-4 pb-4">
+                  <canvas id="reportPie"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="addProjectModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+          <div class="modal-header border-bottom-0 pb-0">
+            <h5 class="modal-title fw-bold">Create New Project</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body pt-4">
+            <form id="addProjectForm">
+              <div class="mb-3">
+                <label class="form-label fw-medium">Project Name</label>
+                <input
+                  type="text"
+                  class="form-control bg-body-tertiary"
+                  id="projectName"
+                  placeholder="e.g. Cloud Migration"
+                  required
+                />
+              </div>
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label class="form-label fw-medium">Team</label>
+                  <select class="form-select bg-body-tertiary" id="projectTeam">
+                    <option value="Backend">Backend</option>
+                    <option value="Frontend">Frontend</option>
+                    <option value="DevOps">DevOps</option>
+                    <option value="Data Science">Data Science</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                <label class="form-label fw-medium">Due Date</label>
+                <input
+                    type="date"
+                    class="form-control bg-body-tertiary"
+                    id="projectDue"
+                    required
+                />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-medium">Current Progress</label>
+                <input
+                  type="range"
+                  class="form-range"
+                  id="projectProgress"
+                  min="0"
+                  max="100"
+                  value="0"
+                  oninput="this.nextElementSibling.value = this.value + '%'"
+                />
+                <output class="fw-bold small">0%</output>
+              </div>
+              <div class="mb-3">
+                <label class="form-label fw-medium">Description</label>
+                <textarea
+                  class="form-control bg-body-tertiary"
+                  id="projectDescription"
+                  rows="3"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-top-0 pt-0">
+            <button
+              type="button"
+              class="btn btn-link text-decoration-none text-body-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary rounded-pill px-4"
+              id="saveProjectBtn"
+            >
+              Create Project
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
