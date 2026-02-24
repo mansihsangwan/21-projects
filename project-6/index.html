@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProResume Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="header-inner">
+        <a href="#" class="brand">
+          <div class="brand-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V9.255S12 9 8 9s-5 .255-5 1.255V14a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"
+              />
+            </svg>
+          </div>
+          <span class="brand-text">ProResume</span>
+        </a>
+
+        <div class="header-actions">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span id="saveStatus">Auto-saved</span>
+          </div>
+          <button
+            id="atsBtn"
+            class="btn btn-outline"
+            style="margin-right: 0.5rem"
+          >
+            ATS Score: <span id="atsScore">0</span>%
+          </button>
+          <button id="themeToggle" class="btn btn-secondary">Dark Mode</button>
+          <button id="resetBtn" class="btn btn-secondary">Reset</button>
+          <button id="downloadBtn" class="btn btn-primary">Download PDF</button>
+        </div>
+      </div>
+    </header>
+
+    <div id="atsModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>ATS Score Breakdown</h2>
+          <button id="closeModal" class="btn-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="score-circle-container">
+            <svg
+              class="score-circle"
+              width="120"
+              height="120"
+              viewBox="0 0 120 120"
+            >
+              <circle
+                cx="60"
+                cy="60"
+                r="54"
+                fill="none"
+                class="circle-bg"
+                stroke-width="12"
+              />
+              <circle
+                cx="60"
+                cy="60"
+                r="54"
+                fill="none"
+                class="circle-progress"
+                stroke-width="12"
+                stroke-dasharray="339.292"
+                stroke-dashoffset="339.292"
+              />
+              <text
+                x="60"
+                y="65"
+                text-anchor="middle"
+                class="score-text"
+                id="modalScoreDisplay"
+              >
+                0
+              </text>
+            </svg>
+          </div>
+          <div id="atsFeedback" class="feedback-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-layout">
+      <aside class="editor-panel" id="editorPanel">
+        <div class="editor-content">
+          <div class="editor-header">
+            <h1>Build Your Resume</h1>
+            <p>
+              Fill in the details below to generate your professional resume.
+            </p>
+
+            <div class="stats-row">
+              <div class="stat-item">
+                <span class="stat-value" id="sectionCount">0</span>
+                <span class="stat-label">Sections</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value" id="fieldProgress">0%</span>
+                <span class="stat-label">Completion</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Template Style</label>
+            <div class="select-wrapper">
+              <select id="templateSelect" class="form-select"></select>
+            </div>
+          </div>
+
+          <nav id="sectionNav" class="section-nav"></nav>
+
+          <form id="resumeForm" class="resume-form"></form>
+        </div>
+      </aside>
+
+      <main class="preview-panel">
+        <div class="preview-toolbar">
+          <div class="preview-label" id="liveMeta">Live Preview</div>
+          <div class="view-toggle">
+            <button type="button" class="toggle-btn active" data-preview-bg="plain">
+              Plain
+            </button>
+            <button type="button" class="toggle-btn" data-preview-bg="grid">
+              Grid
+            </button>
+          </div>
+        </div>
+
+        <div class="preview-stage">
+          <article id="resumePreview" class="resume-preview"></article>
+        </div>
+
+        <div class="preview-footer">
+          <p>Preview uses A4 aspect ratio scale.</p>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
