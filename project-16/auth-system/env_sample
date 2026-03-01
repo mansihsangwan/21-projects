@@ -1,0 +1,5 @@
+PORT=3001
+DATABASE_URL="postgresql://username:password@localhost:5432/authdb"
+
+JWT_ACCESS_SECRET=access_secret_key
+JWT_REFRESH_SECRET=refresh_secret_key
