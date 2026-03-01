@@ -24,10 +24,6 @@ npm run dev
 ## 3. Endpoints
 
 - `GET /`
-- `GET /health`
-- `GET /health/live`
-- `GET /health/ready`
-- `GET /health/detailed`
 - `GET /api/v1`
 - `POST /api/v1/echo`
 - `GET /api/v1/config`
